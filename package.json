@@ -24,5 +24,8 @@
   },
   "lint-staged": {
     "*.{js,json,md}": "prettier --write"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
