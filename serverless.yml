@@ -4,8 +4,8 @@ app: test-task-serverless-books-api
 org: lembdev
 
 plugins:
-  - serverless-offline
   - serverless-dynamodb-local
+  - serverless-offline
 
 custom:
   dynamodb:
@@ -13,8 +13,8 @@ custom:
       - dev
     start:
       port: 8000
-      migrate: true
       inMemory: true
+      migrate: true
 
 provider:
   name: aws
@@ -30,7 +30,7 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+      Resource: 'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}'
 
 functions:
   createBook:
@@ -91,10 +91,10 @@ functions:
 
 resources:
   Resources:
-    BooksDynamoDbTable:
-      Type: "AWS::DynamoDB::Table"
-      DeletionPolicy: Retain
+    booksTable:
+      Type: 'AWS::DynamoDB::Table'
       Properties:
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
         AttributeDefinitions:
           - AttributeName: uuid
             AttributeType: S
@@ -104,4 +104,3 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: ${self:provider.environment.DYNAMODB_TABLE}
