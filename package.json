@@ -1,0 +1,25 @@
+{
+  "name": "test-task-serverless-books-api",
+  "description": "API for managing books in the library",
+  "version": "1.0.0",
+  "author": "Alex Vyzhanov <lembdev@gmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
+    "lint-staged": "^10.2.4",
+    "prettier": "^2.0.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,md}": "prettier --write"
+  }
+}
