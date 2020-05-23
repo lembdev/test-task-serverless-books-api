@@ -21,6 +21,7 @@ provider:
   runtime: nodejs12.x
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    PROVIDER_STAGE: ${opt:stage, self:provider.stage}
   iamRoleStatements:
     - Effect: Allow
       Action:
