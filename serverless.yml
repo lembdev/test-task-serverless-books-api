@@ -58,11 +58,11 @@ functions:
     handler: functions/get.handler
     events:
       - http:
-          path: books/{bookUuid}
+          path: books/{uuid}
           method: get
           cors: true
       - http:
-          path: book/{bookUuid}
+          path: book/{uuid}
           method: get
           cors: true
 
@@ -70,11 +70,11 @@ functions:
     handler: functions/update.handler
     events:
       - http:
-          path: books/{bookUuid}
+          path: books/{uuid}
           method: put
           cors: true
       - http:
-          path: book/{bookUuid}/update
+          path: book/{uuid}/update
           method: post
           cors: true
 
@@ -82,11 +82,11 @@ functions:
     handler: functions/delete.handler
     events:
       - http:
-          path: books/{bookUuid}
+          path: books/{uuid}
           method: delete
           cors: true
       - http:
-          path: book/{bookUuid}/delete
+          path: book/{uuid}/delete
           method: post
           cors: true
 
