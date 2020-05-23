@@ -1,7 +1,3 @@
-import {
-  APIGatewayEventDefaultAuthorizerContext,
-  APIGatewayProxyEventBase,
-} from 'aws-lambda'
 import { IsInt, IsString } from 'class-validator'
 import AbstractRequest from './AbstractRequest'
 import gracefulJsonParse from '../libs/gracefulJsonParse'
@@ -16,9 +12,7 @@ export default class CreateRequest extends AbstractRequest {
   @IsString()
   readonly authorName: string
 
-  getEventParams(
-    event: APIGatewayProxyEventBase<APIGatewayEventDefaultAuthorizerContext>,
-  ): { [p: string]: any } {
+  getEventParams(event) {
     return gracefulJsonParse(event.body)
   }
 }

@@ -1,5 +1,4 @@
 import CreateRequest from '../CreateRequest'
-import { APIGatewayProxyEventBase } from 'aws-lambda'
 
 describe('CreateRequest', () => {
   it('should be defined', () => {
@@ -11,9 +10,9 @@ describe('CreateRequest', () => {
       const eventBody = { test: 'value' }
       const event = {
         body: JSON.stringify(eventBody),
-      } as APIGatewayProxyEventBase<{ [name: string]: any }>
+      }
 
-      const request = new CreateRequest({})
+      const request = new CreateRequest(event)
 
       expect(request.getEventParams(event)).toEqual(eventBody)
     })
