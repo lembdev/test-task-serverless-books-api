@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "name": "Local Lambda",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": ["--inspect", "--debug-port=9229"],
+      "program": "${workspaceFolder}/node_modules/serverless/bin/serverless",
+      "args": ["offline", "start"],
+      "port": 9229,
+      "console": "integratedTerminal"
+    }
+  ]
+}
