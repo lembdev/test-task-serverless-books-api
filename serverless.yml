@@ -4,10 +4,14 @@ app: test-task-serverless-books-api
 org: lembdev
 
 plugins:
+  - serverless-webpack
   - serverless-dynamodb-local
   - serverless-offline
 
 custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
   dynamodb:
     stages:
       - dev
