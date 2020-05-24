@@ -16,9 +16,9 @@ export default abstract class AbstractRequest {
     event: APIGatewayProxyEventBase<APIGatewayEventDefaultAuthorizerContext>,
   ): { [key: string]: any }
 
-  async validate() {
+  async validate(): Promise<void> {
     try {
-      return await validateOrReject(this)
+      await validateOrReject(this, { validationError: { target: false } })
     } catch (errors) {
       throw new ValidationError(errors)
     }

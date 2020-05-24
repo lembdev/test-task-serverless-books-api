@@ -55,21 +55,32 @@ describe('AbstractRequest', () => {
 
   describe('validate()', () => {
     it('should call validateOrReject() from class-validator with current class as param', () => {
+      const testValues = {
+        test1: 'test1Value',
+        test2: 'test2Value',
+      }
+
       class TestRequest extends AbstractRequest {
+        test1: string
+        test2: string
+
         getEventParams(event) {
-          return {}
+          return testValues
         }
       }
 
       const request = new TestRequest({})
       request.validate()
 
-      expect(validateOrReject).toBeCalledWith(request)
+      expect(validateOrReject).toHaveBeenCalledWith(
+        { ...request },
+        expect.anything(),
+      )
     })
 
-    it('should bypass class-validator ValidationError', async () => {
+    it('should throw ValidationError if validateOrReject() promise rejected', async () => {
       // @ts-ignore
-      validateOrReject.mockReturnValue(Promise.reject([]))
+      validateOrReject.mockReturnValue(Promise.reject())
 
       class TestRequest extends AbstractRequest {
         getEventParams(event) {
@@ -79,13 +90,12 @@ describe('AbstractRequest', () => {
 
       const request = new TestRequest({})
 
-      await expect(() => request.validate()).rejects.toThrow(ValidationError)
+      await expect(request.validate()).rejects.toThrow(ValidationError)
     })
 
-    it('should return validateOrReject() result', async () => {
-      const result = { foo: 'bar' }
+    it('should return void if validateOrReject() promise resolved', async () => {
       // @ts-ignore
-      validateOrReject.mockReturnValue(Promise.resolve(result))
+      validateOrReject.mockReturnValue(Promise.resolve())
 
       class TestRequest extends AbstractRequest {
         getEventParams(event) {
@@ -95,7 +105,7 @@ describe('AbstractRequest', () => {
 
       const request = new TestRequest({})
 
-      await expect(await request.validate()).toBe(result)
+      await expect(() => request.validate()).not.toThrow()
     })
   })
 })
